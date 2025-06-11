@@ -1,0 +1,100 @@
+<h2 class="weapon-list-title">Weapons</h2>
+
+<mat-form-field appearance="outline" style="width: 100%;">
+  <mat-label>Search</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex: axe, sword, flame" />
+</mat-form-field>
+<div class="weapon-table-wrapper">
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z2 weapon-table"
+    [class.expanding]="!!expandedElement">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="name-cell">
+          <img [src]="element.image" [alt]="element.name" class="weapon-icon" />
+          <span>{{ element.name }}</span>
+        </div>
+      </td>
+    </ng-container>
+
+
+    <!-- Category Column -->
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef> Category </th>
+      <td mat-cell *matCellDef="let element"> {{ element.category }} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef> Weight </th>
+      <td mat-cell *matCellDef="let element"> {{ element.weight }} </td>
+    </ng-container>
+
+    <!-- Expand Button Column -->
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button (click)="expandedElement = expandedElement === element ? null : element">
+          {{ expandedElement === element ? 'Hide' : 'Show' }} Details
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Expanded Row Template -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length + 1">
+        <div *ngIf="expandedElement === row">
+          <mat-card class="weapon-card">
+            <div class="card-content">
+              <img [src]="row.image" [alt]="row.name" />
+              <div class="weapon-details">
+                <h3>{{ row.name }}</h3>
+                <p class="description">{{ row.description }}</p>
+                <p><strong>Category:</strong> {{ row.category }}</p>
+                <p><strong>Weight:</strong> {{ row.weight }}</p>
+
+                <ng-container *ngIf="row.requiredAttributes?.length">
+                  <p><strong>Required Attributes:</strong></p>
+                  <ul>
+                    <li *ngFor="let attr of row.requiredAttributes">{{ attr.name }}: {{ attr.amount }}</li>
+                  </ul>
+                </ng-container>
+
+                <ng-container *ngIf="row.scalesWith?.length">
+                  <p><strong>Scales With:</strong></p>
+                  <ul>
+                    <li *ngFor="let scale of row.scalesWith">{{ scale.name }}: {{ scale.scaling }}</li>
+                  </ul>
+                </ng-container>
+
+                <ng-container *ngIf="row.attack?.length">
+                  <p><strong>Attack:</strong></p>
+                  <ul>
+                    <li *ngFor="let atk of row.attack">{{ atk.name }}: {{ atk.amount }}</li>
+                  </ul>
+                </ng-container>
+
+                <ng-container *ngIf="row.defence?.length">
+                  <p><strong>Defence:</strong></p>
+                  <ul>
+                    <li *ngFor="let def of row.defence">{{ def.name }}: {{ def.amount }}</li>
+                  </ul>
+                </ng-container>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- Header and Row Definitions -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="main-row"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="expanded-row"></tr>
+  </table>
+</div>
+<div class="paginator-container">
+  <mat-paginator [pageSize]="10" showFirstLastButtons></mat-paginator>
+</div>

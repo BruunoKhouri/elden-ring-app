@@ -1,0 +1,116 @@
+$table-header-bg: #1a1a1a;
+$bg-dark: #121212;
+$gold: #d4af37;
+$text-light: #eee;
+$shadow-glow: rgba(255, 215, 0, 0.2);
+
+.weapon-table-wrapper {
+  height: calc(100vh - 250px); // altura ajustável com base no header/input
+  overflow-y: auto;
+  border: 1px solid #333;
+  border-radius: 4px;
+}
+
+.weapon-table {
+  width: 100%;
+  background: $bg-dark;
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  th,
+  td {
+    color: $text-light;
+    padding: 12px;
+    text-align: left;
+  }
+
+  th {
+    background-color: $table-header-bg;
+    color: $gold;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  button {
+    color: $gold;
+  }
+
+  .expanded-row {
+    background-color: darken($bg-dark, 2%);
+  }
+}
+
+.weapon-card {
+  margin: 16px;
+  background-color: $bg-dark;
+  color: $text-light;
+  border-left: 5px solid $gold;
+  box-shadow: 0 0 6px $shadow-glow;
+
+  .card-content {
+    display: flex;
+    gap: 20px;
+    padding: 16px;
+
+    img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border: 2px solid $gold;
+    }
+
+    .weapon-details {
+      flex: 1;
+
+      h3 {
+        color: $gold;
+        margin: 0;
+      }
+
+      .description {
+        font-style: italic;
+        margin-bottom: 12px;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 16px;
+      }
+    }
+  }
+}
+
+.name-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .weapon-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border: 1px solid #d4af37;
+    border-radius: 4px;
+    background-color: #1e1e1e;
+    padding: 2px;
+  }
+}
+
+
+.paginator-container {
+  position: sticky;
+  bottom: 0;
+  background: $bg-dark;
+  padding: 8px 0;
+  z-index: 3;
+  border-top: 1px solid #444;
+
+  ::ng-deep .mat-paginator-container {
+    color: $text-light;
+  }
+
+  ::ng-deep .mat-paginator-range-actions button {
+    color: $gold;
+  }
+}
