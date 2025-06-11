@@ -1,18 +1,23 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { EldenRingService } from 'src/app/services/elden-ring.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-weapon-list',
   templateUrl: './weapon-list.component.html',
   styleUrls: ['./weapon-list.component.scss']
 })
-export class WeaponListComponent implements OnInit {
+
+export class WeaponListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'category', 'weight', 'expand'];
   dataSource = new MatTableDataSource<any>([]);
   expandedElement: any | null = null;
+
+  /** Used to clean up subscriptions when the component is destroyed */
+  private destroy$ = new Subject<void>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -24,7 +29,10 @@ export class WeaponListComponent implements OnInit {
   ngOnInit(): void {
     this.translate.setDefaultLang('pt'); // Define o idioma padrão
 
-    this.eldenRingService.getWeapons(100).subscribe((response) => {
+    this.eldenRingService
+      .getWeapons(100)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((response) => {
       const translatedData = response.data.map((weapon: any) => ({
         ...weapon,
         category: this.translate.instant('CATEGORIES.' + weapon.category) || weapon.category,
@@ -64,6 +72,11 @@ export class WeaponListComponent implements OnInit {
         return textToSearch.includes(filter);
       };
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   applyFilter(event: Event) {
