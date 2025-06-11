@@ -1,0 +1,53 @@
+{
+  "ATTRIBUTES": {
+    "Str": "For",
+    "Dex": "Des",
+    "Fai": "Fé",
+    "Int": "Int",
+    "Mag": "Magia",
+    "Fire": "Fogo",
+    "Ligt": "Raio",
+    "Holy": "Sagrado",
+    "Crit": "Crítico",
+    "Boost": "Bônus",
+    "Phy": "Físico"
+  },
+  "CATEGORIES": {
+    "Axe": "Machado",
+    "Sword": "Espada",
+    "Staff": "Cajado",
+    "Bow": "Arco",
+    "Dagger": "Adaga",
+    "Colossal": "Colossal",
+    "Greatsword": "Espadão",
+    "Hammer": "Martelo",
+    "Spear": "Lança",
+    "Claw": "Garra",
+    "Fist": "Punho",
+    "Katana": "Katana",
+    "Greatbow": "Grande Arco",
+    "Ballista": "Besta",
+    "Colossal Sword": "Espada Colossal",
+    "Colossal Weapon": "Arma Colossal",
+    "Great Hammer": "Grande Martelo",
+    "Great Axe": "Grande Machado",
+    "Crossbow": "Besta Cruzada",
+    "Whip": "Chicote",
+    "Curved Greatsword": "Espada Curvada Grande",
+    "Curved Sword": "Espada Curvada"
+  },
+  "TABLE": {
+    "TITLE": "Armas",
+    "NAME": "Nome",
+    "CATEGORY": "Categoria",
+    "WEIGHT": "Peso",
+    "REQUIRED": "Atributos Necessários",
+    "SCALES_WITH": "Escala com",
+    "ATTACK": "Ataque",
+    "DEFENCE": "Defesa",
+    "SEARCH": "Pesquisar",
+    "SEARCH_PLACEHOLDER": "Ex: machado, físico, força 14",
+    "SHOW": "Mostrar",
+    "HIDE": "Ocultar"
+  }
+}
